@@ -675,9 +675,9 @@ open GridStructure (coeGrid) in
 lemma boundary_exception {u : 𝔓 X} (hu : u ∈ 𝔘₁ k n l) :
     volume (⋃ i ∈ 𝓛 (X := X) n u, (i : Set X)) ≤ C5_2_9 X n * volume (𝓘 u : Set X) := by
   calc
-    _ ≤ ∑' i : 𝓛 (X := X) n u, volume (i : Set X) := measure_biUnion_le _ ?_ _
+    _ ≤ ∑' i : 𝓛 (X := X) n u, volume (i : Set X) := measure_biUnion_le _ (𝓛 n u).to_countable _
     _ ≤ ∑' i : 𝓛 (X := X) n u,
-      volume { x ∈ ↑(𝓘 u) | EMetric.infEdist x (↑(𝓘 u))ᶜ ≤ 12 * (D ^ (𝔰 u - Z * (n + 1) - 1 : ℤ) : ℝ≥0∞)} := by  sorry
+      volume { x ∈ ↑(𝓘 u) | EMetric.infEdist x (↑(𝓘 u))ᶜ ≤ 12 * (D ^ (𝔰 u - Z * (n + 1) - 1 : ℤ) : ℝ≥0∞)} := sorry
 
     _ ≤ 2 * 12 * (D ^ (- Z * (n + 1) - 1 : ℤ) : ℝ≥0∞) ^ κ * volume (𝓘 u : Set X)  := by
         set X_u := { x ∈ ↑(𝓘 u) | EMetric.infEdist x (↑(𝓘 u))ᶜ ≤ 12 * (D ^ (𝔰 u - Z * (n + 1) - 1 : ℤ) : ℝ≥0∞)}
@@ -704,41 +704,7 @@ lemma boundary_exception {u : 𝔓 X} (hu : u ∈ 𝔘₁ k n l) :
             -- have := add_le_add
             sorry
         sorry
-            
-
-    _ = C5_2_9 X n * volume (𝓘 u : Set X) := sorry
-  sorry
-
-  /- #check tsum_le_tsum -/
-
-lemma boundary_exception' {u : 𝔓 X} (hu : u ∈ 𝔘₁ k n l) :
-    volume (⋃ i ∈ 𝓛 (X := X) n u, (i : Set X)) ≤ C5_2_9 X n * volume (𝓘 u : Set X) := by
-  have : ∀ i ∈ 𝓛 (X := X) n u, true := by
-    intro i hi
-    have : coeGrid i ⊆ ball (c i) (4 * D ^ s i) := Grid_subset_ball
-    have note : (D ^ (-S - s i : ℤ) : ℝ≥0) < 12 := sorry
-    have := small_boundary <| le_of_lt note
-    set X := { x ∈ coeGrid (𝓘 u) | EMetric.infEdist x (coeGrid (𝓘 u))ᶜ ≤ 12 * (D ^ (𝔰 u - Z * (n + 1) - 1 : ℤ) : ℝ≥0∞)}
-    have : coeGrid i ⊆ X := sorry
-    rfl
-  sorry  calc
-    _ ≤ ∑' i : 𝓛 (X := X) n u, volume i := measure_biUnion_le _ ?_ _
-    _ ≤ ∑' i : 𝓛 (X := X) n u,
-      volume { x ∈ ↑(𝓘 u) | EMetric.infEdist x (↑(𝓘 u))ᶜ ≤ 12 * (D ^ (𝔰 u - Z * (n + 1) - 1 : ℤ) : ℝ≥0∞)} := sorry
-    _ ≤ volume ↑(𝓘 u) * 2 * 12 * (D ^ (𝔰 u - Z * (n + 1) - 1 : ℤ) : ℝ≥0∞) := sorry
-
-  #check tsum_le_tsum
-
-  have : ∀ i ∈ 𝓛 (X := X) n u, true := by
-    intro i hi
-    have : coeGrid i ⊆ ball (c i) (4 * D ^ s i) := Grid_subset_ball
-    have note : (D ^ (-S - s i : ℤ) : ℝ≥0) < 12 := sorry
-    have := small_boundary <| le_of_lt note
-    set X := { x ∈ coeGrid (𝓘 u) | EMetric.infEdist x (coeGrid (𝓘 u))ᶜ ≤ 12 * (D ^ (𝔰 u - Z * (n + 1) - 1 : ℤ) : ℝ≥0∞)}
-    have : coeGrid i ⊆ X := sorry
-    rfl
-  sorry
-  sorry
+    _ ≤ C5_2_9 X n * volume (𝓘 u : Set X) := sorry
 
 lemma third_exception_aux :
     volume (⋃ p ∈ 𝔏₄ (X := X) k n j, (𝓘 p : Set X)) ≤
